@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>360° Tour Virtual</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.jss"></script>
+    <script id="plane" type="text/html">
+      <a-entity
+        class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        sound="on: click; src: #click-sound"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+      ></a-entity>
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <audio
+          id="click-sound"
+          src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"
+        ></audio>
+
+        <!-- Images. -->
+        <img id="entrada" src="GS__0090.JPG" />
+        <img id="comedor" src="GS__0092.JPG" />
+        <img id="balcon" src="GS__0095.JPG" />
+        <img id="habitacion" src="GS__0096.JPG" />
+        <img id="entrada-thumb" src="GS__009_thumb.JPG" />
+        <img id="comedor-thumb" src="GS__0092_thumb.JPG" />
+        <img id="balcon-thumb" src="GS__0095_thumb.JPG" />
+        <img id="habitacion-thumb" src="GS__0096_thumb.JPG" />
+      </a-assets>
+      <a-assets>
+        <!-- ... -->
+        <script id="plane" type="text/html">
+          <a-entity
+            class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            sound="on: click; src: #click-sound"
+          ></a-entity>
+        </script>
+      </a-assets>
+
+      <a-entity
+        id="links"
+        layout="type: line; margin: 1.5"
+        position="-2.25 0 -5"
+      >
+        <a-entity
+          template="src: #plane"
+          data-src="#entrada"
+          data-thumb="#entrada-thumb"
+        ></a-entity>
+        <a-entity
+          template="src: #plane"
+          data-src="#comedor"
+          data-thumb="#comedor-thumb"
+        ></a-entity>
+        <a-entity
+          template="src: #plane"
+          data-src="#balcon"
+          data-thumb="#balcon-thumb"
+        ></a-entity>
+        <a-entity
+          template="src: #plane"
+          data-src="#habitacion"
+          data-thumb="#habitacion-thumb"
+        ></a-entity>
+      </a-entity>
+
+      <!-- 360-degree image. -->
+      <a-sky
+        id="image-360"
+        radius="10"
+        src="#entrada"
+        rotation="0 60 0"
+        animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+        animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"
+      ></a-sky>
+
+      <!-- Camera + Cursor. -->
+      <a-camera>
+        <a-cursor
+          id="cursor"
+          animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
+          animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
+          animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"
+        ></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>

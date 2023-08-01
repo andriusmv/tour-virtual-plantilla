@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="global.css" />
+    <title>360° Tour Virtual</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.jss"></script>
+    <script id="plane" type="text/html">
+      <a-entity
+        class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; src: ${thumb}"
+        sound="on: click; src: #click-sound"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+      ></a-entity>
+    </script>
+  </head>
+  <body>
+    <div className="center">
+      <a href="/start"><h1>Start</h1></a>
+    </div>
+  </body>
+</html>
